@@ -27,6 +27,7 @@ public class MoveThread extends Thread{
 		System.out.println("Move score evaluated at: " + mh.eval);
 		System.out.println(mh.move + "Piece captured: " + mh.move.getCapturedPiece());
 		mh.move.make(board);
+		ai.updateLastMove(mh.move + " Piece captured: " + mh.move.getCapturedPiece());
 		ai.makeDone();
 	}
 	

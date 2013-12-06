@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -13,16 +14,19 @@ public class AITurnWindow {
 	private JFrame frame;
 	private JPanel p;
 	private JProgressBar progressBar;
-	private AITurnWindow window = this;
+	private JLabel label;
+	private JLabel mouseOver;
+	private static AITurnWindow window;
 	
 	public AITurnWindow(final AIPlayer ai) {
+		window = this;
 		frame = new JFrame();
 		p = new JPanel();
 		frame.add(p);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		p.setLayout(new BorderLayout());
 		JButton nextTurn = new JButton();
-		p.add(nextTurn);
+		p.add(nextTurn, BorderLayout.NORTH);
 		nextTurn.setText("Make Turn");
 		nextTurn.addActionListener(new ActionListener() {
 			
@@ -36,8 +40,13 @@ public class AITurnWindow {
 		
 		progressBar = new JProgressBar();
 		progressBar.setStringPainted(true);
-		p.add(progressBar, BorderLayout.SOUTH);
+		p.add(progressBar, BorderLayout.CENTER);
 		
+		label = new JLabel("----------------------------------------------------------------------------------------------------------------------");
+		p.add(label, BorderLayout.SOUTH);
+		
+		mouseOver = new JLabel("Tile: 00");
+		p.add(mouseOver,BorderLayout.EAST);
 		
 		frame.pack();
 		frame.setVisible(true);
@@ -56,6 +65,15 @@ public class AITurnWindow {
 	}
 
 	public void resetProgress() {
-		progressBar.setValue(0);		
+				
+	}
+	
+	public void setSouthLabelText(String text) {
+		label.setText(text);
+	//	frame.pack();
+	}
+	
+	public static void setMouseOver(int tile) {
+		window.mouseOver.setText("Tile: " + tile);
 	}
 }

@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import chess.ai.AITurnWindow;
+
 public class Tile {
 
 	private JLabel lbl;
@@ -44,7 +46,7 @@ public class Tile {
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				System.out.println("Mouse over " + position);
+				AITurnWindow.setMouseOver(position);
 			}
 
 			@Override

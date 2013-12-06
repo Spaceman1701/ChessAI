@@ -53,4 +53,8 @@ public class AIPlayer{
 	public void updateProgressBar(int i) {
 		progress.updateProgressBar(i);
 	}
+	
+	public void updateLastMove(String moveInfo) {
+		progress.setSouthLabelText(moveInfo);
+	}
 }
