@@ -2,6 +2,8 @@ package chess.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import chess.ai.movecalculator.Utils;
 import chess.gui.Board;
@@ -90,7 +92,7 @@ public class MoveThread extends Thread{
 	}
 
 	public List<Move> getAllMoves(Side side, Board board) {
-		List<Move> moves = new ArrayList<Move>();
+		Set<Move> moves = new TreeSet<Move>(new MoveComparator<Move>());
 		for (Tile t : board.getBoard()) {
 			if (t.getPiece() != Piece.NO_PIECE && t.getPiece().side == side) {
 				List<Move> pieceMoves = Utils.unknownPieceMove(side, t.getPiece(), t.getPosition(), board);
@@ -99,7 +101,7 @@ public class MoveThread extends Thread{
 				}
 			}
 		}
-		return moves;
+		return new ArrayList<Move>(moves);
 	}
 	
 

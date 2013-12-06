@@ -61,11 +61,18 @@ public class AITurnWindow {
 		if (progressBar.getValue() >= progressBar.getMaximum()) {
 			progressBar.setMaximum(progressBar.getMaximum() * 2);
 		}
+		if (progressBar.getMaximum() >= Integer.MAX_VALUE) {
+			progressBar.setIndeterminate(true);
+			progressBar.setStringPainted(false);
+		}
 		progressBar.setValue(progressBar.getValue() + i);
 	}
 
 	public void resetProgress() {
-				
+		progressBar.setIndeterminate(false);
+		progressBar.setStringPainted(true);
+		progressBar.setValue(0);
+		progressBar.setMaximum(100);
 	}
 	
 	public void setSouthLabelText(String text) {
