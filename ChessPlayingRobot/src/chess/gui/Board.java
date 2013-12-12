@@ -2,11 +2,16 @@ package chess.gui;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
+import chess.SaveFile;
 import chess.ai.Move;
 
 public class Board {
@@ -16,10 +21,38 @@ public class Board {
 	 * @ShreyHaria args the command line arguments
 	 */
 	private Tile[] board;
+	private final GUI gui;
+	private JFileChooser chooser;
+	
+	public Board() {
+		chooser = new JFileChooser();
+		gui = new GUI();
+		gui.mainframe.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent event) {
+				if (event.getKeyChar() == 'o' || event.getKeyChar() == 'O') {
+					loadGame();
+				} else if (event.getKeyChar() == 's' || event.getKeyChar() == 'S'){
+					saveGame();
+				}
+			}
+		});
+	}
 
 	public void gamestart() {
-
-		GUI gui = new GUI();
 		board = new Tile[64];
 		int count = 0;
 		for (int rank = 1; rank <= 8; rank++, count++) {
@@ -91,6 +124,28 @@ public class Board {
 			// System.out.println(t.getPiece() + " " + t.getPosition());
 		}
 		gui.mainframe.setVisible(true);
+	}
+	
+	public void saveGame() {
+		int value = chooser.showSaveDialog(gui.mainframe);
+		if (value == JFileChooser.APPROVE_OPTION) {
+			try {
+				SaveFile.saveGame(board, chooser.getSelectedFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void loadGame() {
+		int value = chooser.showOpenDialog(gui.mainframe);
+		if (value == JFileChooser.APPROVE_OPTION) {
+			try {
+				SaveFile.loadFile(board, chooser.getSelectedFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public Tile[] getBoard() {

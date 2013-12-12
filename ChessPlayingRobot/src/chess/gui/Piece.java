@@ -24,4 +24,13 @@ public enum Piece {
 		this.side = side;
 	}
 	
+	public static Piece fromString(String str) {
+		for (Piece p : values()) {
+			if (p.toString().equalsIgnoreCase(str)) {
+				return p;
+			}
+		}
+		return NO_PIECE;
+	}
+	
 }

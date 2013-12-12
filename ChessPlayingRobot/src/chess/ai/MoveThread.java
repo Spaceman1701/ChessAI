@@ -1,6 +1,7 @@
 package chess.ai;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -23,7 +24,10 @@ public class MoveThread extends Thread{
 	public void run() {
 		ai.makeInProgress();
 		ai.resetProgress();
-		ai.setProgressMax((int) Math.pow(15, DEPTH));
+		
+		
+		double maxD = Math.pow(getAllMoves(Side.WHITE, board).size(), DEPTH);
+		ai.setProgressMax((int)maxD);
 		
 		MoveHolder mh = maxi(Integer.MIN_VALUE, Integer.MAX_VALUE, DEPTH);
 		System.out.println("Move score evaluated at: " + mh.eval);
@@ -43,7 +47,7 @@ public class MoveThread extends Thread{
 			return new MoveHolder(null, evaluate());
 		}
 		Move bestMove = null;
-		List<Move> moves = getAllMoves(Side.BLACK, board);
+		Collection<Move> moves = getAllMoves(Side.BLACK, board);
 		int i = 0;
 		for (Move m : moves) { //The AI is always black
 			
@@ -51,7 +55,7 @@ public class MoveThread extends Thread{
 			MoveHolder mini = mini(alpha, beta, depth-1);
 			m.unmake(board);
 			if (mini.eval >= beta) {
-				updateProgress(moves.size() - i);
+				updateProgress(1);
 				return new MoveHolder(m, beta);
 			}
 			if (mini.eval > alpha) {
@@ -59,7 +63,7 @@ public class MoveThread extends Thread{
 				bestMove = m;
 			}
 			i++;
-			updateProgress(i);
+			updateProgress(1);
 		}
 		return new MoveHolder(bestMove, alpha);
 	}
@@ -70,7 +74,7 @@ public class MoveThread extends Thread{
 		}
 		//int min = Integer.MAX_VALUE;
 		Move bestMove = null;
-		List<Move> moves = getAllMoves(Side.WHITE, board);
+		Collection<Move> moves = getAllMoves(Side.WHITE, board);
 		int  i = 0;
 		for (Move m : moves) { //The AI is always black
 			m.make(board);
@@ -91,7 +95,7 @@ public class MoveThread extends Thread{
 		return new MoveHolder(bestMove, beta);
 	}
 
-	public List<Move> getAllMoves(Side side, Board board) {
+	public Collection<Move> getAllMoves(Side side, Board board) {
 		Set<Move> moves = new TreeSet<Move>(new MoveComparator<Move>());
 		for (Tile t : board.getBoard()) {
 			if (t.getPiece() != Piece.NO_PIECE && t.getPiece().side == side) {
@@ -101,7 +105,8 @@ public class MoveThread extends Thread{
 				}
 			}
 		}
-		return new ArrayList<Move>(moves);
+		System.out.println(moves.size());
+		return moves;
 	}
 	
 
