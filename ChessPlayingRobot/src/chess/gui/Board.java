@@ -37,7 +37,7 @@ public class Board {
 			
 			@Override
 			public boolean accept(File file) {
-				return file.getAbsolutePath().endsWith(".chess");
+				return file.isDirectory() || file.getAbsolutePath().endsWith(".chess");
 			}
 		};
 		chooser.addChoosableFileFilter(ff);
@@ -159,6 +159,7 @@ public class Board {
 		if (value == JFileChooser.APPROVE_OPTION) {
 			try {
 				SaveFile.loadFile(board, chooser.getSelectedFile());
+				gui.mainframe.setTitle("Chess Game: " + chooser.getSelectedFile().getName());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
