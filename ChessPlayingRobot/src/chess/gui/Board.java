@@ -4,12 +4,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileFilter;
 
 import chess.SaveFile;
 import chess.ai.Move;
@@ -26,6 +28,21 @@ public class Board {
 	
 	public Board() {
 		chooser = new JFileChooser();
+		FileFilter ff = new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Chess Game Save Files (.chess)";
+			}
+			
+			@Override
+			public boolean accept(File file) {
+				return file.getAbsolutePath().endsWith(".chess");
+			}
+		};
+		chooser.addChoosableFileFilter(ff);
+		chooser.setFileFilter(ff);
+		
 		gui = new GUI();
 		gui.mainframe.addKeyListener(new KeyListener() {
 			
