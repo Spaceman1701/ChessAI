@@ -79,9 +79,9 @@ public class Board {
 				System.out.println("Loc = " + loc);
 
 				if ((file + rank) % 2 == 0) {
-					board[loc] = new Tile("", this, loc, java.awt.Color.GRAY);
-				} else {
 					board[loc] = new Tile("", this, loc, java.awt.Color.WHITE);
+				} else {
+					board[loc] = new Tile("", this, loc, java.awt.Color.GRAY);
 				}
 
 				gui.mainframe.add(board[loc].getLable());
