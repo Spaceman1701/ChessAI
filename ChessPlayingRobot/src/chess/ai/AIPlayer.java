@@ -29,9 +29,9 @@ public class AIPlayer{
 		new AITurnWindow(this);
 	}
 
-	public void makeTurn(AITurnWindow window) {
+	public void makeTurn(int depth, AITurnWindow window) {
 		this.progress = window;
-		new MoveThread(board, this).start();
+		new MoveThread(depth, board, this).start();
 	}
 
 	public void makeDone() {

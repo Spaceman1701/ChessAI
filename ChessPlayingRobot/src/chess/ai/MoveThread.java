@@ -15,25 +15,27 @@ public class MoveThread extends Thread{
 	private Board board;
 	private AIPlayer ai;
 	
-	private static final int DEPTH = 6;
+	private int depth;
 	
-	public MoveThread(Board board, AIPlayer ai) {
+	public MoveThread(int depth, Board board, AIPlayer ai) {
 		this.ai = ai;
 		this.board = board;
+		this.depth = depth;
 	}
 	public void run() {
+		System.out.println("Search depth: " + depth);
 		ai.makeInProgress();
 		ai.resetProgress();
 		
 		
-		double maxD = Math.pow(getAllMoves(Side.WHITE, board).size(), DEPTH);
+		double maxD = Math.pow(getAllMoves(Side.WHITE, board).size(), depth);
 		ai.setProgressMax((int)maxD);
 		
-		MoveHolder mh = maxi(Integer.MIN_VALUE, Integer.MAX_VALUE, DEPTH);
+		MoveHolder mh = maxi(Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
 		System.out.println("Move score evaluated at: " + mh.eval);
 		System.out.println(mh.move + "Piece captured: " + mh.move.getCapturedPiece());
 		mh.move.make(board);
-		ai.updateLastMove(mh.move + " Piece captured: " + mh.move.getCapturedPiece());
+		ai.updateLastMove(mh.move + " Piece captured: " + mh.move.getCapturedPiece()+ " Scored at " + mh.eval);
 		ai.makeDone();
 	}
 	
@@ -105,7 +107,6 @@ public class MoveThread extends Thread{
 				}
 			}
 		}
-		System.out.println(moves.size());
 		return moves;
 	}
 	
@@ -123,9 +124,9 @@ public class MoveThread extends Thread{
 		int blackValue = 0;
 		for (Tile t : board.getBoard()) {
 			if (t.getPiece().side == Side.WHITE) {
-				whiteValue += t.getPiece().value;
+				whiteValue += t.getValue();
 			} else if (t.getPiece().side == Side.BLACK) {
-				blackValue += t.getPiece().value;
+				blackValue += t.getValue();
 			}
 		}
 		return (blackValue - whiteValue); // AI is always black
