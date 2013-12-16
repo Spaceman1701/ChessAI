@@ -18,6 +18,7 @@ public class Tile {
 
 	private Board board;
 	private final int position;
+	private int pieceMod = 0;
 
 	Tile(String lblname, Board parent, final int position, java.awt.Color tc) {
 		System.out.println(position);
@@ -64,6 +65,12 @@ public class Tile {
 				}
 			}
 		});
+		int[] center = {18,19,20,21};
+		for (int i : center) {
+			if (position == i || position == i + 8 || position == i+16 || position == i+24) {
+				pieceMod = 50;
+			}
+		}
 	}
 
 	public JLabel getLable() {
@@ -83,6 +90,10 @@ public class Tile {
 
 	public Piece getPiece() {
 		return piece;
+	}
+	
+	public int getValue() {
+		return piece.value + pieceMod;
 	}
 
 	public int getPosition() {

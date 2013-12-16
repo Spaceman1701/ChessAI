@@ -32,17 +32,29 @@ public class PawnMoveCalculator {
 
 		if (board.pieceAt(location + 7).side == Side.BLACK) {
 			if (board.ranksApart(location, location+7) == 1) {
-				addMove(moves, new Move(getPiece(Side.WHITE), location, location + 7, board), board);
+				if (Utils.inRank(8, location+7)) {
+					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+7,board),board);
+				} else {
+					addMove(moves, new Move(getPiece(Side.WHITE), location, location + 7, board), board);
+				}
 			}
 		}
 		if (board.pieceAt(location + 9).side == Side.BLACK) {
 			if (board.ranksApart(location, location+9) == 1) {
-				addMove(moves,new Move(getPiece(Side.WHITE), location, location + 9, board), board);
+				if (Utils.inRank(8, location+9)) {
+					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+9,board),board);
+				} else {
+					addMove(moves,new Move(getPiece(Side.WHITE), location, location + 9, board), board);
+				}
 			}
 		}
 		for (Integer i : possibleMoves) {
 			if (!board.isPieceAt(location + i)) {
-				addMove(moves, new Move(getPiece(Side.WHITE), location, location + i, board), board);
+				if (Utils.inRank(8, location+i)) {
+					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+i,board),board);
+				} else {
+					addMove(moves, new Move(getPiece(Side.WHITE), location, location + i, board), board);
+				}
 			}
 		}
 		return moves;
@@ -59,18 +71,29 @@ public class PawnMoveCalculator {
 
 		if (board.pieceAt(location - 7).side == Side.WHITE) {
 			if (board.ranksApart(location, location-7) == 1) {
-				addMove(moves, new Move(getPiece(Side.BLACK), location, location - 7, board), board);
+				if (Utils.inRank(1, location-7)) {
+					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location-7,board),board);
+				} else {
+					addMove(moves, new Move(getPiece(Side.BLACK), location, location - 7, board), board);
+				}
 			}
 		}
 		if (board.pieceAt(location - 9).side == Side.WHITE) {
 			if (board.ranksApart(location, location-9) == 1) {
-				addMove(moves, new Move(getPiece(Side.BLACK), location, location - 9, board), board);
-			//	System.out.println(board.ranksApart(location, location-9));
+				if (Utils.inRank(1, location-9)) {
+					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location-9,board),board);
+				} else {
+					addMove(moves, new Move(getPiece(Side.BLACK), location, location - 9, board), board);
+				}
 			}
 		}
 		for (Integer i : possibleMoves) {
 			if (!board.isPieceAt(location + i)) {
-				addMove(moves, new Move(getPiece(Side.BLACK), location, location + i, board), board);
+				if (Utils.inRank(1, location+i)) {
+					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location+i,board),board);
+				} else {
+					addMove(moves, new Move(getPiece(Side.BLACK), location, location + i, board), board);
+				}
 			}
 		}
 		return moves;

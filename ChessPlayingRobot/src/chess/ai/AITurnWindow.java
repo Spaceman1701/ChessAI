@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 public class AITurnWindow {
 	private JFrame frame;
@@ -17,6 +18,7 @@ public class AITurnWindow {
 	private JProgressBar progressBar;
 	private JLabel label;
 	private JLabel mouseOver;
+	private JTextArea depthText;
 	private static AITurnWindow window;
 	
 	public AITurnWindow(final AIPlayer ai) {
@@ -34,7 +36,7 @@ public class AITurnWindow {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (!AIPlayer.isInProgress()) {
-					ai.makeTurn(window);
+					ai.makeTurn(Integer.parseInt(depthText.getText()), window);
 				}
 			}
 		});
@@ -48,7 +50,8 @@ public class AITurnWindow {
 		
 		mouseOver = new JLabel("Tile: 00");
 		p.add(mouseOver,BorderLayout.EAST);
-		
+		depthText = new JTextArea("06");
+		p.add(depthText, BorderLayout.WEST);
 		frame.pack();
 		frame.setVisible(true);
 	}
