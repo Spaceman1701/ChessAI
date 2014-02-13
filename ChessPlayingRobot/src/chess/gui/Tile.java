@@ -65,7 +65,7 @@ public class Tile {
 				}
 			}
 		});
-		int[] center = {18,19,20,21};
+		int[] center = {27,28,35, 36};
 		for (int i : center) {
 			if (position == i || position == i + 8 || position == i+16 || position == i+24) {
 				pieceMod = 50;

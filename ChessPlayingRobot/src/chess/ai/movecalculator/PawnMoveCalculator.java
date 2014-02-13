@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chess.ai.Move;
+import chess.ai.PromotionMove;
 import chess.ai.Side;
 import chess.gui.Board;
 import chess.gui.Piece;
@@ -33,7 +34,7 @@ public class PawnMoveCalculator {
 		if (board.pieceAt(location + 7).side == Side.BLACK) {
 			if (board.ranksApart(location, location+7) == 1) {
 				if (Utils.inRank(8, location+7)) {
-					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+7,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.WHITE), Piece.WHITE_QUEEN, location, location+7,board),board);
 				} else {
 					addMove(moves, new Move(getPiece(Side.WHITE), location, location + 7, board), board);
 				}
@@ -42,7 +43,7 @@ public class PawnMoveCalculator {
 		if (board.pieceAt(location + 9).side == Side.BLACK) {
 			if (board.ranksApart(location, location+9) == 1) {
 				if (Utils.inRank(8, location+9)) {
-					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+9,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.WHITE), Piece.WHITE_QUEEN, location, location+9,board),board);
 				} else {
 					addMove(moves,new Move(getPiece(Side.WHITE), location, location + 9, board), board);
 				}
@@ -51,7 +52,7 @@ public class PawnMoveCalculator {
 		for (Integer i : possibleMoves) {
 			if (!board.isPieceAt(location + i)) {
 				if (Utils.inRank(8, location+i)) {
-					addMove(moves, new Move(Piece.WHITE_QUEEN, location, location+i,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.WHITE),Piece.WHITE_QUEEN, location, location+i,board),board);
 				} else {
 					addMove(moves, new Move(getPiece(Side.WHITE), location, location + i, board), board);
 				}
@@ -72,7 +73,7 @@ public class PawnMoveCalculator {
 		if (board.pieceAt(location - 7).side == Side.WHITE) {
 			if (board.ranksApart(location, location-7) == 1) {
 				if (Utils.inRank(1, location-7)) {
-					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location-7,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.BLACK),Piece.BLACK_QUEEN, location, location-7,board),board);
 				} else {
 					addMove(moves, new Move(getPiece(Side.BLACK), location, location - 7, board), board);
 				}
@@ -81,7 +82,7 @@ public class PawnMoveCalculator {
 		if (board.pieceAt(location - 9).side == Side.WHITE) {
 			if (board.ranksApart(location, location-9) == 1) {
 				if (Utils.inRank(1, location-9)) {
-					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location-9,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.BLACK), Piece.BLACK_QUEEN, location, location-9,board),board);
 				} else {
 					addMove(moves, new Move(getPiece(Side.BLACK), location, location - 9, board), board);
 				}
@@ -90,7 +91,7 @@ public class PawnMoveCalculator {
 		for (Integer i : possibleMoves) {
 			if (!board.isPieceAt(location + i)) {
 				if (Utils.inRank(1, location+i)) {
-					addMove(moves, new Move(Piece.BLACK_QUEEN, location, location+i,board),board);
+					addMove(moves, new PromotionMove(getPiece(Side.BLACK), Piece.BLACK_QUEEN, location, location+i,board),board);
 				} else {
 					addMove(moves, new Move(getPiece(Side.BLACK), location, location + i, board), board);
 				}

@@ -5,11 +5,11 @@ import chess.gui.Piece;
 import chess.gui.Tile;
 
 public class Move {
-	private final int startLocation;
-	private final int toLocation;
+	protected final int startLocation;
+	protected final int toLocation;
 	private final int value;
-	private final Piece capturedPiece;
-	private final Piece movedPiece;
+	protected final Piece capturedPiece;
+	protected final Piece movedPiece;
 	private int eval = 0;
 	
 	public Move(Piece movedPiece, int startLocation, int toLocation, Board board) {
