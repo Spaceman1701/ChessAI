@@ -28,6 +28,7 @@ public class Board {
 	
 	public Board() {
 		chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		FileFilter ff = new FileFilter() {
 			
 			@Override
